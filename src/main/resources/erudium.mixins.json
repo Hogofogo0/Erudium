@@ -3,7 +3,7 @@
 	"package": "hogo.erudium.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"MixinLivingEntity"
 	],
 	"injectors": {
 		"defaultRequire": 1

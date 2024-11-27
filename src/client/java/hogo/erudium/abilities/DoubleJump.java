@@ -27,7 +27,7 @@ public class DoubleJump implements HudRenderCallback {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1,1,1,1);
         RenderSystem.setShaderTexture(0, i);
-        switch (ErudiumClient.numberOfJumpsLeft) {
+        switch (Erudium.numberOfJumpsLeft) {
             case 1:
                 drawContext.drawTexture(i, x-5, y/2+15, 0, 0, 9, 10, 16, 16);
                 break;

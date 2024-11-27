@@ -7,14 +7,19 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
+import static hogo.erudium.Erudium.numberOfJumpsLeft;
+
 public class ErudiumClient implements ClientModInitializer {
-	public static int numberOfJumpsLeft = 5;
+
 	public static boolean isGrounded = true;
 	@Override
 	public void onInitializeClient() {
+		Erudium.LOGGER.info("Initializing Client");
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if(client.player != null){
 				if(client.player.getVelocity().getY() > 0.1 || client.player.getVelocity().getY() < -0.1) isGrounded = false;
@@ -30,6 +35,7 @@ public class ErudiumClient implements ClientModInitializer {
 					client.player.addVelocity(tempvec.x*2.5,1,tempvec.z*2.5);
 					client.player.velocityModified = true;
 					numberOfJumpsLeft--;
+					client.player.playSound(SoundEvents.BLOCK_BUBBLE_COLUMN_WHIRLPOOL_INSIDE,1f,1f);
 
 
 				}
