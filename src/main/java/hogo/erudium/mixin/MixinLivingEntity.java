@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinLivingEntity {
 	@Inject(method = "computeFallDamage", at = @At("RETURN"), cancellable = true)
 	private void inject$computeFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Integer> cir) {
-		if(Erudium.numberOfJumpsLeft<5) cir.setReturnValue(0);
+		if(Erudium.numberOfJumpsLeft<6 && Erudium.numberOfJumpsLeft > 0) cir.setReturnValue(0);
 	}
 }

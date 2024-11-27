@@ -45,6 +45,13 @@ public class DoubleJump implements HudRenderCallback {
                 drawContext.drawTexture(i, x-21, y/2+15, 0, 0, 9, 10, 16, 16);
                 drawContext.drawTexture(i, x+12, y/2+15, 0, 0, 9, 10, 16, 16);
                 break;
+            case 5:
+                drawContext.drawTexture(i, x-5, y/2+15, 0, 0, 9, 10, 16, 16);
+                drawContext.drawTexture(i, x-16, y/2+15, 0, 0, 9, 10, 16, 16);
+                drawContext.drawTexture(i, x+6, y/2+15, 0, 0, 9, 10, 16, 16);
+                drawContext.drawTexture(i, x-27, y/2+15, 0, 0, 9, 10, 16, 16);
+                drawContext.drawTexture(i, x+17, y/2+15, 0, 0, 9, 10, 16, 16);
+                break;
             default:
                 break;
         }
