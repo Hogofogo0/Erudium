@@ -2,7 +2,6 @@ package hogo.erudium.abilities;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import hogo.erudium.Erudium;
-import hogo.erudium.ErudiumClient;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
