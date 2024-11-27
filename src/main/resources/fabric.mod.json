@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "erudium",
+	"version": "${version}",
+	"name": "Erudium",
+	"description": "A bit of everything",
+	"authors": [
+		"Hogo"
+	],
+	"contact": {
+		"homepage": "https://erudium.web.app/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/erudium/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"hogo.erudium.Erudium"
+		],
+		"client": [
+			"hogo.erudium.ErudiumClient"
+		],
+		"fabric-datagen": [
+			"hogo.erudium.ErudiumDataGenerator"
+		]
+	},
+	"mixins": [
+		"erudium.mixins.json",
+		{
+			"config": "erudium.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*",
+		"fabric-key-binding-api-v1": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
