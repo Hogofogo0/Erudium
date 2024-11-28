@@ -7,15 +7,21 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 
+
 import static hogo.erudium.Erudium.numberOfJumpsLeft;
 
 public class ErudiumClient implements ClientModInitializer {
 
 	public static boolean isGrounded = true;
 	public static int regenProgress = 0;
+
+
 	@Override
 	public void onInitializeClient() {
 		Erudium.LOGGER.info("Initializing Client");
+
+
+
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if(client.player != null){
 				if(client.player.getVelocity().getY() > 0.1 || client.player.getVelocity().getY() < -0.1) isGrounded = false;
@@ -27,7 +33,8 @@ public class ErudiumClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if(client.player != null){
-				while (client.options.jumpKey.wasPressed() && (!isGrounded || numberOfJumpsLeft<6) && numberOfJumpsLeft>0){
+
+				while (client.options.jumpKey.wasPressed() && !isGrounded && numberOfJumpsLeft>0 && (!client.player.isCreative() && !client.player.isSpectator())){
 
 					Vec3d tempvec = client.player.getRotationVector();
 					client.player.addVelocity(tempvec.x*2.5,1,tempvec.z*2.5);
@@ -37,7 +44,7 @@ public class ErudiumClient implements ClientModInitializer {
 
 
 				}
-				if(client.player.isOnGround()){if(numberOfJumpsLeft<6 && regenProgress >= 15) {numberOfJumpsLeft++; regenProgress = 0;} isGrounded = true;regenProgress++;Erudium.LOGGER.info(String.valueOf(regenProgress));}
+				if(client.player.isOnGround()){if(numberOfJumpsLeft<6 && regenProgress >= 15) {numberOfJumpsLeft++; regenProgress = 0;} isGrounded = true;regenProgress++;}
 
 			}
 
