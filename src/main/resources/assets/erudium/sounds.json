@@ -1,0 +1,8 @@
+{
+  "falling_sound": {
+    "subtitle": "sounds.erudium.falling_sound",
+    "sounds": [
+      "erudium:falling_sound"
+    ]
+  }
+}
