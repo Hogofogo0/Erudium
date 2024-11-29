@@ -25,15 +25,17 @@ public class ErudiumClient implements ClientModInitializer {
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if(client.player != null){
 				if(client.player.getVelocity().getY() > 0.1 || client.player.getVelocity().getY() < -0.1) isGrounded = false;
+
 			}
 
 
 		});
 
 
+
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if(client.player != null){
-
+					client.player.onLanding();
 				while (client.options.jumpKey.wasPressed() && !isGrounded && numberOfJumpsLeft>0 && (!client.player.isCreative() && !client.player.isSpectator())){
 
 					Vec3d tempvec = client.player.getRotationVector();
