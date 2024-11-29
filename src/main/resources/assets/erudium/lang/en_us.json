@@ -1,7 +1,7 @@
 {
-  "key.erudium.doublejump": "Double Jump",
   "category.erudium.erudium": "Erudium",
   "painting.erudium.herzig.author": "Hogo",
   "painting.erudium.herzig.title": "Herzig",
-  "sounds.erudium.falling_sound": "Quintuple Jump Fall Sound"
+  "sounds.erudium.falling_sound": "Quintuple Jump Fall Sound",
+  "key.erudium.jump_switch": "Enable/Disable Launch"
 }
