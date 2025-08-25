@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "minecraft:pufferfish"
+  },
+  "result": "wynn:pfx",
+  "experience": 0.1,
+  "cookingtime": 200
+}

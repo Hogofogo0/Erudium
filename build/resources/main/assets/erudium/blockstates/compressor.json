@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "wynn:block/compressor"
+    }
+  }
+}

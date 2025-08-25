@@ -1,0 +1,29 @@
+{
+  "zvdk": {
+    "subtitle": "sounds.wynn.zvdk",
+    "sounds": [
+      "wynn:zvdk"
+    ]
+  },
+  "ptd": {
+    "subtitle": "sounds.wynn.ptd",
+    "sounds": [
+      "wynn:ptd"
+    ]
+  },
+  "tdb": {
+    "subtitle": "sounds.wynn.tdb",
+    "sounds": [
+      "wynn:tdb"
+    ]
+  },
+  "ptd_remix": {
+    "subtitle": "sounds.wynn.ptd_remix",
+    "sounds": [
+      {
+        "name": "wynn:ptd_remix",
+        "stream": true
+      }
+    ]
+  }
+}
