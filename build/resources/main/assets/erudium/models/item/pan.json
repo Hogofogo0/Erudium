@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "wynn:item/pan",
-		"particle": "wynn:item/pan"
+		"0": "erudium:item/pan",
+		"particle": "erudium:item/pan"
 	},
 	"elements": [
 		{

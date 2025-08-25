@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "wynn:block/coffee_bean_block"
+    "all": "erudium:block/coffee_bean_block"
   }
 }

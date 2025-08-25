@@ -1,6 +1,6 @@
 {
   "item.erudium.uzeny_pisek": "Uzený Písek",
-  "itemGroup.erudium.erudium": "erudium",
+  "itemGroup.erudium.erudium": "Erudium",
   "item.erudium.pfx": "Pokerfish Extract",
   "death.attack.pfxdeath": "%1$s has died by stuffing their mouth with Pokerfish Extract",
   "effect.erudium.pfxpoisoning": "PFX Poisoning",
@@ -18,9 +18,7 @@
   "item.erudium.honza_spawn_egg": "Honza Spawn Egg",
   "entity.erudium.honza": "Honza (Mob)",
   "item.erudium.coffee": "Silná černá káva",
-  "entity.minecraft.villager.sound_master": "Jitka Simočková",
+  "entity.minecraft.villager.simockova": "Jitka Simočková",
   "item.erudium.coffee_beans": "Coffee Beans",
-  "block.erudium.coffee_bean_block": "Coffee Bag",
-  "item.erudium.black_hole_staff": "Black Hole Staff",
-  "item.erudium.example_item": "Example Item"
+  "block.erudium.coffee_bean_block": "Coffee Bag"
 }

@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:pufferfish"
   },
-  "result": "wynn:pfx",
+  "result": "erudium:pfx",
   "experience": 0.1,
   "cookingtime": 200
 }

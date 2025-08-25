@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wynn:item/uzeny_pisek"
+    "layer0": "erudium:item/uzeny_pisek"
   }
 }

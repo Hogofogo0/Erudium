@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "wynn:item/coffee_bean_block"
+    "layer0": "erudium:item/coffee_bean_block"
   }
 }
