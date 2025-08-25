@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "erudium:pfx"
+    },
+    "title": {
+      "text": "AAA",
+      "extra": [
+        {
+          "text": "Kqarel Mode Activated",
+          "color": "dark_purple",
+          "obfuscated": false
+        },
+        {
+          "text": "AAA",
+          "obfuscated": true
+        }
+      ],
+      "color": "dark_purple",
+      "obfuscated": true
+    },
+    "description": "TO NEDÁŠ",
+    "background": "erudium:textures/item/ptd_remix_music_disc.png",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ]
+}

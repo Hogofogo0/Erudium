@@ -1,8 +1,7 @@
 {
-  "replace": false,
   "values": [
     {
-      "id": "wynn:soundpoi",
+      "id": "erudium:simockova_poi",
       "required": false
     }
   ]

@@ -1,27 +1,27 @@
 {
   "zvdk": {
-    "subtitle": "sounds.wynn.zvdk",
+    "subtitle": "sounds.erudium.zvdk",
     "sounds": [
-      "wynn:zvdk"
+      "erudium:zvdk"
     ]
   },
   "ptd": {
-    "subtitle": "sounds.wynn.ptd",
+    "subtitle": "sounds.erudium.ptd",
     "sounds": [
-      "wynn:ptd"
+      "erudium:ptd"
     ]
   },
   "tdb": {
-    "subtitle": "sounds.wynn.tdb",
+    "subtitle": "sounds.erudium.tdb",
     "sounds": [
-      "wynn:tdb"
+      "erudium:tdb"
     ]
   },
   "ptd_remix": {
-    "subtitle": "sounds.wynn.ptd_remix",
+    "subtitle": "sounds.erudium.ptd_remix",
     "sounds": [
       {
-        "name": "wynn:ptd_remix",
+        "name": "erudium:ptd_remix",
         "stream": true
       }
     ]

@@ -2,11 +2,15 @@ package hogo.erudium;
 
 import com.mojang.logging.LogUtils;
 import hogo.erudium.block.ModBlocks;
+import hogo.erudium.entity.ModEntities;
 import hogo.erudium.entity.ModVillagers;
+import hogo.erudium.entity.honza.HonzaRenderer;
+import hogo.erudium.entity.vojta.VojtaRenderer;
 import hogo.erudium.item.ModItems;
 import hogo.erudium.menus.CreativeMenu;
 import hogo.erudium.sound.ModSounds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -42,6 +46,7 @@ public class ErudiumMod
         ModBlocks.BLOCKS.register(modEventBus);
         ModVillagers.VILLAGER_PROFESSIONS.register(modEventBus);
         ModVillagers.POI_TYPES.register(modEventBus);
+        ModEntities.ENTITY_TYPES.register(modEventBus);
 
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -79,6 +84,8 @@ public class ErudiumMod
         {
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            EntityRenderers.register(ModEntities.HONZA.get(), HonzaRenderer::new);
+            EntityRenderers.register(ModEntities.VOJTA.get(), VojtaRenderer::new);
         }
     }
 }

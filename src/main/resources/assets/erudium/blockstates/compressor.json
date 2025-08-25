@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "wynn:block/compressor"
+      "model": "erudium:block/compressor"
     }
   }
 }

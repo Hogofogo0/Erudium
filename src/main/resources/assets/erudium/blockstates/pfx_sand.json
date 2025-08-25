@@ -1,7 +1,7 @@
 {
   "variants": {
     "":{
-      "model": "wynn:block/pfx_sand"
+      "model": "erudium:block/pfx_sand"
     }
   }
 }

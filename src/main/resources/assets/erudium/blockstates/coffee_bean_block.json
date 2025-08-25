@@ -1,7 +1,7 @@
 {
   "variants": {
     "":{
-      "model": "wynn:block/coffee_bean_block"
+      "model": "erudium:block/coffee_bean_block"
     }
   }
 }
