@@ -8,7 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class CreativeMenu {
@@ -24,6 +23,9 @@ public class CreativeMenu {
                 output.accept(ModItems.PTD_REMIX_MD.get());
                 output.accept(ModBlocks.COFFEE_BEAN_BLOCK.get());
                 output.accept(ModBlocks.POKERFISH_STUFFED_SAND.get());
+                output.accept(ModItems.VOJTA_SPAWN_EGG.get());
+                output.accept(ModItems.HONZA_SPAWN_EGG.get());
+                output.accept(ModBlocks.COMPRESSOR.get());
             }))
             .build());
 

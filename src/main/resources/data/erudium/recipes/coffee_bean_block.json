@@ -1,0 +1,17 @@
+{
+  "type": "erudium:compressing",
+  "ingredients": [
+    {
+      "item": "erudium:coffee_beans",
+      "count": 64
+    },
+    {
+      "item": "erudium:coffee_beans",
+      "count": 64
+    }
+  ],
+  "result": {
+    "item": "erudium:coffee_bean_block",
+    "count": 1
+  }
+}

@@ -2,7 +2,10 @@ package hogo.erudium.entity.honza;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import hogo.erudium.entity.animation.ModAnimations;
+import hogo.erudium.entity.vojta.VojtaEntity;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -13,7 +16,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.Monster;
 
-public class HonzaModel<H extends Monster> extends EntityModel<HonzaEntity> {
+public class HonzaModel<H extends Monster> extends HierarchicalModel<HonzaEntity> {
 	private final ModelPart vojta;
 	private final ModelPart head;
 
@@ -74,19 +77,25 @@ public class HonzaModel<H extends Monster> extends EntityModel<HonzaEntity> {
 	@Override
 	public void setupAnim(HonzaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		// Reset transforms
-		vojta.resetPose();
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		// Head rotation
 		head.yRot = Mth.clamp(netHeadYaw, -30f, 30f) * ((float) Math.PI / 180F);
 		head.xRot = Mth.clamp(headPitch, -25f, 25f) * ((float) Math.PI / 180F);
 
 		// Example walking animation (replace with your ModAnimations if needed)
-		// ModAnimations.WALK.apply(vojta, limbSwing, limbSwingAmount);
+		this.animateWalk(ModAnimations.WALK,limbSwing,limbSwingAmount,1f,1f);
+
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		vojta.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+	}
+
+	@Override
+	public ModelPart root() {
+		return vojta;
 	}
 
 	public ModelPart getVojta() {

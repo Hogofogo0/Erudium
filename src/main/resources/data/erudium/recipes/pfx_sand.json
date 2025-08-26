@@ -1,0 +1,17 @@
+{
+  "type": "erudium:compressing",
+  "ingredients": [
+    {
+      "item": "erudium:pfx",
+      "count": 1
+    },
+    {
+      "tag": "minecraft:sand",
+      "count": 16
+    }
+  ],
+  "result": {
+    "item": "erudium:pfx_sand",
+    "count": 16
+  }
+}

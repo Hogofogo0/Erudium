@@ -2,14 +2,19 @@ package hogo.erudium;
 
 import com.mojang.logging.LogUtils;
 import hogo.erudium.block.ModBlocks;
+import hogo.erudium.block.compressor.screen.CompressorScreen;
+import hogo.erudium.block.compressor.screen.ModMenuTypes;
+import hogo.erudium.block.entity.ModBlockEntities;
 import hogo.erudium.entity.ModEntities;
 import hogo.erudium.entity.ModVillagers;
 import hogo.erudium.entity.honza.HonzaRenderer;
 import hogo.erudium.entity.vojta.VojtaRenderer;
 import hogo.erudium.item.ModItems;
 import hogo.erudium.menus.CreativeMenu;
+import hogo.erudium.recipe.ModRecipes;
 import hogo.erudium.sound.ModSounds;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -47,6 +52,9 @@ public class ErudiumMod
         ModVillagers.VILLAGER_PROFESSIONS.register(modEventBus);
         ModVillagers.POI_TYPES.register(modEventBus);
         ModEntities.ENTITY_TYPES.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        ModRecipes.SERIALIZERS.register(modEventBus);
+        ModMenuTypes.MENUS.register(modEventBus);
 
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -86,6 +94,7 @@ public class ErudiumMod
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
             EntityRenderers.register(ModEntities.HONZA.get(), HonzaRenderer::new);
             EntityRenderers.register(ModEntities.VOJTA.get(), VojtaRenderer::new);
+            MenuScreens.register(ModMenuTypes.COMPRESSOR_MENU.get(), CompressorScreen::new);
         }
     }
 }

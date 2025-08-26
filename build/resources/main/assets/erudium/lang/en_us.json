@@ -6,6 +6,7 @@
   "effect.erudium.pfxpoisoning": "PFX Poisoning",
   "block.erudium.pfx_sand": "Pokerfish Stuffed Sand",
   "block.erudium.compressor": "Compressor",
+  "process.erudium.compressing": "Compressing",
   "item.erudium.vojta_spawn_egg": "Vojta Spawn Egg",
   "entity.erudium.vojta": "Vojta (Mob)",
   "sounds.erudium.zvdk": "Zvracení vody do krajiny",
@@ -18,7 +19,8 @@
   "item.erudium.honza_spawn_egg": "Honza Spawn Egg",
   "entity.erudium.honza": "Honza (Mob)",
   "item.erudium.coffee": "Silná černá káva",
-  "entity.minecraft.villager.erudium.simockova": "Jitka Simočková",
+  "entity.minecraft.villager.simockova": "Jitka Simočková",
+  "simockova": "Jitka Simočková",
   "item.erudium.coffee_beans": "Coffee Beans",
   "block.erudium.coffee_bean_block": "Coffee Bag"
 }
