@@ -1,0 +1,15 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  },
+  "vertex": "erudium:skybox.vsg",
+  "fragment": "erudium:skybox.fsh",
+  "samplers": [
+    { "name": "skyboxTex" }
+  ],
+  "uniforms": [
+    { "name": "uTime", "type": "float", "count": 1 }
+  ]
+}

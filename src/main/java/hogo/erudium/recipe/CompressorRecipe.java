@@ -139,7 +139,7 @@ public class CompressorRecipe implements Recipe<SimpleContainer> {
     // --- SERIALIZER ---
     public static class Serializer implements RecipeSerializer<CompressorRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(ErudiumMod.MODID, "compressing");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ErudiumMod.MODID, "compressing");
 
         @Override
         public CompressorRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
