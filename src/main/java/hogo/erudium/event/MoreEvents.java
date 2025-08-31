@@ -21,12 +21,7 @@ public class MoreEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void rightClick(PlayerInteractEvent.RightClickItem event){
-        if(event.getItemStack().is(ModItems.Kuroshoten.get())){
-            ErudiumMod.NETWORK.sendToServer(new TeleportToDimensionPacket(ModDimensions.ENDLESS_VOID_KEY));
-        }
-    }
+
 
     @SubscribeEvent
     public static void onSoundPlay(PlaySoundEvent event) {

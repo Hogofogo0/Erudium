@@ -45,6 +45,7 @@ public class TeleportToDimensionPacket {
             if (player != null && player.getServer() != null) {
                 ServerLevel targetLevel = player.getServer().getLevel(packet.dimension);
                 if (targetLevel != null) {
+                    if(targetLevel==player.level()) {ctx.get().setPacketHandled(true); return;}
                     double scale = player.level().dimensionType().coordinateScale() / targetLevel.dimensionType().coordinateScale(); // e.g., 2.0
 
 // Compute scaled coordinates if necessary (Vanilla will handle Nether/Overworld automatically)
