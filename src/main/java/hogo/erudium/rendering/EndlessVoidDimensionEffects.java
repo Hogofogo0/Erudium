@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import hogo.erudium.ErudiumMod;
 import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
@@ -28,7 +27,7 @@ public class EndlessVoidDimensionEffects extends DimensionSpecialEffects {
     };
 
     @Override
-    public @NotNull Vec3 getBrightnessDependentFogColor(Vec3 pFogColor, float pBrightness) {
+    public @NotNull Vec3 getBrightnessDependentFogColor(@NotNull Vec3 pFogColor, float pBrightness) {
         return new Vec3(0,0,0);
     }
 
@@ -45,7 +44,7 @@ public class EndlessVoidDimensionEffects extends DimensionSpecialEffects {
 
 
     @Override
-    public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack matrixStack, Camera camera, @NotNull Matrix4f projectionMatrix, boolean isFoggy, @NotNull Runnable setupFog) {
+    public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack matrixStack, @NotNull Camera camera, @NotNull Matrix4f projectionMatrix, boolean isFoggy, @NotNull Runnable setupFog) {
 
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();

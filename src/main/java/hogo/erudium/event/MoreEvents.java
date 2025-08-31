@@ -4,7 +4,6 @@ import hogo.erudium.ErudiumMod;
 import hogo.erudium.ModDimensions;
 import hogo.erudium.item.ModItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;

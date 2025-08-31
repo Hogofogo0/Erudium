@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class PlayerProxyRenderer extends MobRenderer<PlayerProxyEntity, StaticPlayerModel<PlayerProxyEntity>> {
