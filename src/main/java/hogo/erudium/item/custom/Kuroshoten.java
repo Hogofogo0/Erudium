@@ -8,16 +8,24 @@ import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 public class Kuroshoten extends SwordItem {
     public Kuroshoten() {
-        super(Tiers.NETHERITE, 15, 1.8f, new Item.Properties());
+        super(Tiers.NETHERITE, 20, -2.8f, new Item.Properties());
     }
+
+
+
+
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
@@ -72,6 +80,23 @@ public class Kuroshoten extends SwordItem {
         }
 
         return super.onLeftClickEntity(stack, player, entity);
+    }
+
+    @Override
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
+        return UseAnim.EAT; // Can be BOW, SPEAR, BLOCK, DRINK, EAT, etc.
+    }
+
+    @Override
+    public int getUseDuration(@NotNull ItemStack stack) {
+        return 32; // Keep charging until released
+    }
+
+    @Override
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(stack);
     }
 
 

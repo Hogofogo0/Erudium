@@ -19,6 +19,7 @@ public class ModItems {
 
 
 
+
     public static final RegistryObject<Item> SMOKED_SAND = ITEMS.register("uzeny_pisek", () -> new Item(new Item.Properties().food(FoodItems.SMOKED_SAND)));
     public static final RegistryObject<Item> COFFEE = ITEMS.register("coffee", () -> new DrinkableItem(new Item.Properties().food(FoodItems.COFFEE)));
     public static final RegistryObject<Item> POKERFISH_EXTRACT = ITEMS.register("pfx", () -> new FuelItem(new Item.Properties().food(FoodItems.PFX),1800));
