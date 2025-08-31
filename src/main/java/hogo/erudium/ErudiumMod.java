@@ -7,24 +7,20 @@ import hogo.erudium.block.compressor.screen.ModMenuTypes;
 import hogo.erudium.block.entity.ModBlockEntities;
 import hogo.erudium.entity.ModEntities;
 import hogo.erudium.entity.ModVillagers;
+import hogo.erudium.entity.PlayerProxy.PlayerProxyRenderer;
+import hogo.erudium.entity.PlayerProxy.PlayerProxyRendererSlim;
 import hogo.erudium.entity.honza.HonzaRenderer;
 import hogo.erudium.entity.vojta.VojtaRenderer;
 import hogo.erudium.event.TeleportToDimensionPacket;
 import hogo.erudium.item.ModItems;
 import hogo.erudium.menus.CreativeMenu;
 import hogo.erudium.recipe.ModRecipes;
-import hogo.erudium.rendering.ModPostProcessor;
 import hogo.erudium.sound.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.core.Registry;
-import net.minecraft.core.WritableRegistry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -39,14 +35,13 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
-import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ErudiumMod.MODID)
 public class ErudiumMod
 {
     public static final String MODID = "erudium";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     private static final String PROTOCOL_VERSION = "1";
     private static int packetId = 0;
     public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(
@@ -94,7 +89,7 @@ public class ErudiumMod
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
-    private void registerPackets() {
+    private static void registerPackets() {
         NETWORK.registerMessage(
                 packetId++,
                 TeleportToDimensionPacket.class,
@@ -102,6 +97,8 @@ public class ErudiumMod
                 TeleportToDimensionPacket::decode,
                 TeleportToDimensionPacket::handle
         );
+
+
     }
 
     // Add the example block item to the building blocks tab
@@ -125,8 +122,10 @@ public class ErudiumMod
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
             EntityRenderers.register(ModEntities.HONZA.get(), HonzaRenderer::new);
             EntityRenderers.register(ModEntities.VOJTA.get(), VojtaRenderer::new);
+            EntityRenderers.register(ModEntities.PLAYER_NPC.get(), PlayerProxyRenderer::new);
+            EntityRenderers.register(ModEntities.PLAYER_NPC_SLIM.get(), PlayerProxyRendererSlim::new);
             MenuScreens.register(ModMenuTypes.COMPRESSOR_MENU.get(), CompressorScreen::new);
-
+            registerPackets();
 
 
 

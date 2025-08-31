@@ -26,6 +26,7 @@ public class CreativeMenu {
                 output.accept(ModItems.VOJTA_SPAWN_EGG.get());
                 output.accept(ModItems.HONZA_SPAWN_EGG.get());
                 output.accept(ModBlocks.COMPRESSOR.get());
+                output.accept(ModItems.Kuroshoten.get());
             }))
             .build());
 

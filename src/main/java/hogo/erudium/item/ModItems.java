@@ -7,13 +7,8 @@ import hogo.erudium.item.custom.FuelItem;
 import hogo.erudium.item.custom.Kuroshoten;
 import hogo.erudium.item.custom.Pan;
 import hogo.erudium.sound.ModSounds;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -33,7 +28,7 @@ public class ModItems {
     public static final RegistryObject<Item> COFFEE_BEANS = ITEMS.register("coffee_beans", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VOJTA_SPAWN_EGG = ITEMS.register("vojta_spawn_egg",() -> new ForgeSpawnEggItem(ModEntities.VOJTA::get, 0x5286FF,0x001442,new Item.Properties()));
     public static final RegistryObject<Item> HONZA_SPAWN_EGG = ITEMS.register("honza_spawn_egg",() -> new ForgeSpawnEggItem(ModEntities.HONZA::get, 0xff1f3d,0x450000,new Item.Properties()));
-    public static final RegistryObject<Item> Kuroshoten = ITEMS.register("kuroshoten",() -> new Kuroshoten(Tiers.NETHERITE,15,1.7f, null));
+    public static final RegistryObject<Item> Kuroshoten = ITEMS.register("kuroshoten",() -> new Kuroshoten());
 
 
     public static void register(IEventBus bus) {

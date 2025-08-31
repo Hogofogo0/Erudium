@@ -1,15 +1,18 @@
 package hogo.erudium.event;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.level.TicketType;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
@@ -42,12 +45,36 @@ public class TeleportToDimensionPacket {
             if (player != null && player.getServer() != null) {
                 ServerLevel targetLevel = player.getServer().getLevel(packet.dimension);
                 if (targetLevel != null) {
-                    double scale = targetLevel.dimensionType().coordinateScale()/player.level().dimensionType().coordinateScale(); // e.g., 2.0
+                    double scale = player.level().dimensionType().coordinateScale() / targetLevel.dimensionType().coordinateScale(); // e.g., 2.0
 
 // Compute scaled coordinates if necessary (Vanilla will handle Nether/Overworld automatically)
                     Vec3 pos = player.position().multiply(new Vec3(scale, 1, scale));
+                    ChunkPos chunkPos = new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
+                    assert Minecraft.getInstance().player != null;
+                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Teleport Initiated."), true);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Teleport Initiated.."), true);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Teleport Initiated..."), true);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Please Wait..."), true);
+                    targetLevel.getChunk(chunkPos.x,chunkPos.z, ChunkStatus.FULL,true);
+                    targetLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, chunkPos, 2,player.getId());
 
-                    player.teleportTo(targetLevel, pos.x, targetLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING,new BlockPos((int) pos.x,0, (int) pos.z)).getY(), pos.z, player.getYRot(), player.getXRot());
+                    player.teleportTo(targetLevel, pos.x, targetLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new BlockPos((int) pos.x, 1, (int) pos.z)).getY(), pos.z, player.getYRot(), player.getXRot());
+
                 }
             }
         });

@@ -1,26 +1,74 @@
 package hogo.erudium.item.custom;
 
+import hogo.erudium.ErudiumMod;
 import hogo.erudium.ModDimensions;
-import hogo.erudium.block.compressor.screen.ModMenuTypes;
-import hogo.erudium.menus.CreativeMenu;
+import hogo.erudium.entity.ModEntities;
+import hogo.erudium.entity.PlayerProxy.PlayerProxyEntity;
+import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.Tiers;
-import team.lodestar.lodestone.systems.item.LodestoneItemProperties;
+import net.minecraft.world.item.*;
+
+import java.util.Objects;
 
 public class Kuroshoten extends SwordItem {
-    public Kuroshoten(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
-        super(Tiers.NETHERITE, 15, 1.8f, new LodestoneItemProperties(CreativeMenu.TAB));
+    public Kuroshoten() {
+        super(Tiers.NETHERITE, 15, 1.8f, new Item.Properties());
     }
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (player.level() instanceof ServerLevel serverLevel) {
+            // Create a new instance of your custom NPC entity
+            assert Minecraft.getInstance().level != null;
+            AbstractClientPlayer p = (AbstractClientPlayer) Minecraft.getInstance().level.getPlayerByUUID(player.getUUID());
+            assert p != null;
+            ErudiumMod.LOGGER.info(p.getModelName());
 
-        if(entity instanceof Player){
-            entity.changeDimension(player.getServer().getLevel(ModDimensions.ENDLESS_VOID_KEY));
+            if ("slim".equals(p.getModelName())) {
+                PlayerProxyEntitySlim proxy = ModEntities.PLAYER_NPC_SLIM.get().create(serverLevel);
+
+
+                if (proxy != null) {
+                    // Set the entity's position to the player's position
+                    proxy.setPos(player.getX(), player.getY(), player.getZ());
+
+                    // Set the player's UUID on the proxy entity
+                    proxy.setPlayerUUID(player.getUUID());
+
+                    // Add the entity to the world.
+                    // setPosAndYRot() and addFreshEntity() are good methods for this.
+                    proxy.setPos(player.getX(), player.getY(), player.getZ());
+                    serverLevel.addFreshEntity(proxy);
+
+                }
+
+            } else {
+
+                PlayerProxyEntity proxy = ModEntities.PLAYER_NPC.get().create(serverLevel);
+
+
+                if (proxy != null) {
+                    // Set the entity's position to the player's position
+                    proxy.setPos(player.getX(), player.getY(), player.getZ());
+
+                    // Set the player's UUID on the proxy entity
+                    proxy.setPlayerUUID(player.getUUID());
+
+                    // Add the entity to the world.
+                    // setPosAndYRot() and addFreshEntity() are good methods for this.
+                    proxy.setPos(player.getX(), player.getY(), player.getZ());
+                    serverLevel.addFreshEntity(proxy);
+
+                }
+            }
+        }
+
+        if (entity instanceof Player) {
+            entity.changeDimension(Objects.requireNonNull(Objects.requireNonNull(player.getServer()).getLevel(ModDimensions.ENDLESS_VOID_KEY)));
         }
 
         return super.onLeftClickEntity(stack, player, entity);

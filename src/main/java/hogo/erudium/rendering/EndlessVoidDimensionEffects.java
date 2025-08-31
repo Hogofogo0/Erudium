@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
@@ -27,7 +28,7 @@ public class EndlessVoidDimensionEffects extends DimensionSpecialEffects {
     };
 
     @Override
-    public Vec3 getBrightnessDependentFogColor(Vec3 pFogColor, float pBrightness) {
+    public @NotNull Vec3 getBrightnessDependentFogColor(Vec3 pFogColor, float pBrightness) {
         return new Vec3(0,0,0);
     }
 
@@ -38,25 +39,26 @@ public class EndlessVoidDimensionEffects extends DimensionSpecialEffects {
 
 
     @Override
-    public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX, double camY, double camZ, Matrix4f projectionMatrix) {
+    public boolean renderClouds(@NotNull ClientLevel level, int ticks, float partialTick, @NotNull PoseStack poseStack, double camX, double camY, double camZ, @NotNull Matrix4f projectionMatrix) {
         return false;
     }
 
 
     @Override
-    public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack matrixStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
-        Minecraft mc = Minecraft.getInstance();
+    public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack matrixStack, Camera camera, @NotNull Matrix4f projectionMatrix, boolean isFoggy, @NotNull Runnable setupFog) {
+
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
 
         float time = (level.getGameTime() + partialTick) % 3600 / 3600f;
-        float angle = time * 20f;
+        float angle = time * 40f;
 
         float s = 5f; // large enough to surround camera
 
-        Vec3 camPos = camera.getPosition();
+
         matrixStack.pushPose();
-        matrixStack.mulPose(new Quaternionf().rotateXYZ((float)Math.toRadians(angle),(float)Math.toRadians(angle),(float)Math.toRadians(angle))); // rotate sky
+        matrixStack.mulPose(new Quaternionf().rotateXYZ((float)Math.toRadians(angle),(float)Math.toRadians(angle),(float)Math.toRadians(angle)));
+
 
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
