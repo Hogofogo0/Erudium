@@ -11,6 +11,7 @@ import hogo.erudium.entity.PlayerProxy.PlayerProxyRenderer;
 import hogo.erudium.entity.PlayerProxy.PlayerProxyRendererSlim;
 import hogo.erudium.entity.honza.HonzaRenderer;
 import hogo.erudium.entity.vojta.VojtaRenderer;
+import hogo.erudium.event.PlayerModelSyncPacket;
 import hogo.erudium.event.TeleportToDimensionPacket;
 import hogo.erudium.item.ModItems;
 import hogo.erudium.menus.CreativeMenu;
@@ -96,6 +97,13 @@ public class ErudiumMod
                 TeleportToDimensionPacket::encode,
                 TeleportToDimensionPacket::decode,
                 TeleportToDimensionPacket::handle
+        );
+        NETWORK.registerMessage(
+                packetId++,
+                PlayerModelSyncPacket.class,
+                PlayerModelSyncPacket::encode,
+                PlayerModelSyncPacket::decode,
+                PlayerModelSyncPacket::handle
         );
 
 

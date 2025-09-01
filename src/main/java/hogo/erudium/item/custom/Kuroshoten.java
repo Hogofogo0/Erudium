@@ -6,6 +6,7 @@ import hogo.erudium.ModDimensions;
 import hogo.erudium.entity.ModEntities;
 import hogo.erudium.entity.PlayerProxy.PlayerProxyEntity;
 import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
+import hogo.erudium.event.PlayerModelSyncPacket;
 import hogo.erudium.event.TeleportToDimensionPacket;
 import hogo.erudium.item.ModItems;
 import net.minecraft.client.Minecraft;
@@ -59,24 +60,21 @@ public class Kuroshoten extends SwordItem {
             if (clientPlayer != null) {
                 ErudiumMod.LOGGER.info(clientPlayer.getModelName());
             }
+            String modelType= clientPlayer.getModelName();
+
+
+            hogo.erudium.ErudiumMod.NETWORK.sendToServer(new PlayerModelSyncPacket(modelType));
         }
 
         // ---- SERVER-SIDE LOGIC ----
         if (!player.level().isClientSide && entity instanceof ServerPlayer serverPlayer) {
             ServerLevel serverLevel = serverPlayer.serverLevel();
 
-            // Spawn the proxy NPC
-            boolean isSlim = false;
-            AbstractClientPlayer clientPlayer = null;
+
             Vec3 pos = new Vec3(entity.getX(),entity.getY(),entity.getZ());
 
             // Attempt to get client model info (optional, can be skipped entirely server-side)
-            if (Minecraft.getInstance().level != null) {
-                clientPlayer = (AbstractClientPlayer) Minecraft.getInstance().level.getPlayerByUUID(targetPlayer.getUUID());
-                if (clientPlayer != null && "slim".equals(clientPlayer.getModelName())) {
-                    isSlim = true;
-                }
-            }
+            boolean isSlim = hogo.erudium.event.PlayerModelSyncPacket.getPlayerModel(targetPlayer.getUUID()).equals("slim");
 
                         // Give the player slow falling effect
             targetPlayer.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 300));

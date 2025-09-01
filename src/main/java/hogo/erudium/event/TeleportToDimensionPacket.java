@@ -1,12 +1,8 @@
 package hogo.erudium.event;
 
-import hogo.erudium.item.ModItems;
-import hogo.erudium.item.custom.Kuroshoten;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -53,7 +49,7 @@ public class TeleportToDimensionPacket {
 // Compute scaled coordinates if necessary (Vanilla will handle Nether/Overworld automatically)
                     Vec3 pos = player.position().multiply(new Vec3(scale, 1, scale));
                     ChunkPos chunkPos = new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
-                    assert Minecraft.getInstance().player != null;
+
 
                     targetLevel.getChunk(chunkPos.x,chunkPos.z, ChunkStatus.SURFACE,true);
                     targetLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, chunkPos, 2,player.getId());
