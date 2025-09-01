@@ -20,6 +20,7 @@ import java.util.function.Supplier;
 public class TeleportToDimensionPacket {
     private final ResourceKey<Level> dimension;
 
+
     // Constructor
     public TeleportToDimensionPacket(ResourceKey<Level> dimension) {
         this.dimension = dimension;
