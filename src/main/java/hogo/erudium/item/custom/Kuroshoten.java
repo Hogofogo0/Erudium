@@ -177,7 +177,10 @@ public class Kuroshoten extends SwordItem {
     @Override
     public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 
-        ErudiumMod.NETWORK.sendToServer(new TeleportToDimensionPacket(ModDimensions.ENDLESS_VOID_KEY));
+        if (level.isClientSide && entity instanceof Player player) {
+            System.out.println("Sending teleport packet for: " + player.getName().getString());
+            ErudiumMod.NETWORK.sendToServer(new TeleportToDimensionPacket(ModDimensions.ENDLESS_VOID_KEY));
+        }
         return stack;
     }
 

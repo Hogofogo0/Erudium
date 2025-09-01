@@ -52,7 +52,7 @@ public class TeleportToDimensionPacket {
                     ChunkPos chunkPos = new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
 
 
-                    targetLevel.getChunk(chunkPos.x,chunkPos.z, ChunkStatus.SURFACE,true);
+                    targetLevel.getChunk(chunkPos.x,chunkPos.z, ChunkStatus.FULL,true);
                     targetLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, chunkPos, 2,player.getId());
 
                     player.teleportTo(targetLevel, pos.x, targetLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new BlockPos((int) pos.x, 1, (int) pos.z)).getY(), pos.z, player.getYRot(), player.getXRot());
