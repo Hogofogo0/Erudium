@@ -1,5 +1,6 @@
 package hogo.erudium.item.custom;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import hogo.erudium.ErudiumMod;
 import hogo.erudium.ModDimensions;
 import hogo.erudium.entity.ModEntities;
@@ -8,8 +9,13 @@ import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
 import hogo.erudium.event.TeleportToDimensionPacket;
 import hogo.erudium.item.ModItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
@@ -18,25 +24,28 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkStatus;
-import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.storage.PlayerDataStorage;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
 
-import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class Kuroshoten extends SwordItem {
     public Kuroshoten() {
         super(Tiers.NETHERITE, 20, -2.8f, new Item.Properties());
     }
 
-    public boolean inUse = false;
+
 
 
     @Override
@@ -89,12 +98,24 @@ public class Kuroshoten extends SwordItem {
                         proxy.setPos(pos_.x, pos_.y, pos_.z);
                         proxy.setPlayerUUID(targetPlayer.getUUID());
                         serverLevel.addFreshEntity(proxy);
+                        CompoundTag playerData = serverPlayer.getPersistentData();
+                        ListTag entityList;
+
+                        if (playerData.contains("npcs", 9)) { // 9 = ListTag
+                            entityList = playerData.getList("npcs", 8); // 8 = StringTag
+                        } else {
+                            entityList = new ListTag();
+                        }
+
+                        entityList.add(StringTag.valueOf(String.valueOf(entity.getId())));
+                        playerData.put("npcs", entityList);
                         try {
                             Thread.sleep(10000);
+                            proxy.discard();
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        proxy.discard();
+
                     }
                 } else {
                     PlayerProxyEntity proxy = ModEntities.PLAYER_NPC.get().create(serverLevel);
@@ -102,12 +123,24 @@ public class Kuroshoten extends SwordItem {
                         proxy.setPos(pos_.x, pos_.y, pos_.z);
                         proxy.setPlayerUUID(targetPlayer.getUUID());
                         serverLevel.addFreshEntity(proxy);
+                        CompoundTag playerData = serverPlayer.getPersistentData();
+                        ListTag entityList;
+
+                        if (playerData.contains("npcs", 9)) { // 9 = ListTag
+                            entityList = playerData.getList("npcs", 8); // 8 = StringTag
+                        } else {
+                            entityList = new ListTag();
+                        }
+
+                        entityList.add(StringTag.valueOf(String.valueOf(entity.getId())));
+                        playerData.put("npcs", entityList);
                         try {
                             Thread.sleep(10000);
+                            proxy.discard();
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        proxy.discard();
+
                     }
                 }
             }
@@ -122,30 +155,36 @@ public class Kuroshoten extends SwordItem {
 
     @Override
     public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.BRUSH; // Can be BOW, SPEAR, BLOCK, DRINK, EAT, etc.
+        return UseAnim.SPEAR; // Can be BOW, SPEAR, BLOCK, DRINK, EAT, etc.
     }
 
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
-        return 60; // Keep charging until released
+        return 102; // Keep charging until released
     }
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-
+        if (player.getUseItemRemainingTicks() != 0  || player.level().dimension() == ModDimensions.ENDLESS_VOID_KEY) return InteractionResultHolder.consume(stack);
         player.startUsingItem(hand);
+
+
         return InteractionResultHolder.consume(stack);
     }
 
-    @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 
+
+    @Override
+    public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 
         ErudiumMod.NETWORK.sendToServer(new TeleportToDimensionPacket(ModDimensions.ENDLESS_VOID_KEY));
         return stack;
     }
+
+
+
 
 
 }

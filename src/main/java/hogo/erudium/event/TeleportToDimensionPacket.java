@@ -1,5 +1,7 @@
 package hogo.erudium.event;
 
+import hogo.erudium.item.ModItems;
+import hogo.erudium.item.custom.Kuroshoten;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -52,26 +54,8 @@ public class TeleportToDimensionPacket {
                     Vec3 pos = player.position().multiply(new Vec3(scale, 1, scale));
                     ChunkPos chunkPos = new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
                     assert Minecraft.getInstance().player != null;
-                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Teleport Initiated."), true);
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Teleport Initiated.."), true);
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Teleport Initiated..."), true);
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    Minecraft.getInstance().player.displayClientMessage(Component.literal("Please Wait..."), true);
-                    targetLevel.getChunk(chunkPos.x,chunkPos.z, ChunkStatus.FULL,true);
+
+                    targetLevel.getChunk(chunkPos.x,chunkPos.z, ChunkStatus.SURFACE,true);
                     targetLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, chunkPos, 2,player.getId());
 
                     player.teleportTo(targetLevel, pos.x, targetLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new BlockPos((int) pos.x, 1, (int) pos.z)).getY(), pos.z, player.getYRot(), player.getXRot());

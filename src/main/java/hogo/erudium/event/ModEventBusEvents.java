@@ -12,6 +12,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+
 @Mod.EventBusSubscriber(modid = ErudiumMod.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents {
     @SubscribeEvent
@@ -26,6 +27,8 @@ public class ModEventBusEvents {
     public static void onRegisterDimensionSpecialEffects(RegisterDimensionSpecialEffectsEvent event) {
         event.register(ResourceLocation.fromNamespaceAndPath(ErudiumMod.MODID,"endless_void_effects"), new EndlessVoidDimensionEffects());
     }
+
+
 
 
 

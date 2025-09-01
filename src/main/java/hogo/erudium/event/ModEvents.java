@@ -2,31 +2,37 @@ package hogo.erudium.event;
 
 import hogo.erudium.ErudiumMod;
 import hogo.erudium.entity.ModVillagers;
+import hogo.erudium.entity.PlayerProxy.PlayerProxyEntity;
+import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
 import hogo.erudium.item.ModItems;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = ErudiumMod.MODID)
 public class ModEvents {
@@ -107,6 +113,47 @@ public class ModEvents {
         // Uložíme aktuální stav poisonu
         hadPoison.put(player.getUUID(), hasPoison);
     }
+
+    @SubscribeEvent
+    public static void hurtEvent(LivingHurtEvent e){
+        if(e.getEntity() instanceof Player){
+            if(e.getEntity().getUseItem().getItem() == ModItems.Kuroshoten.get()){
+                e.getEntity().stopUsingItem();
+            }
+        }
+        if(e.getEntity() instanceof PlayerProxyEntity || e.getEntity() instanceof PlayerProxyEntitySlim){
+            e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntity) e.getEntity()).getPlayerUUID()).hurt(e.getSource(),e.getAmount());
+        }
+    }
+
+    @SubscribeEvent
+    public static void leaveEvent(PlayerEvent.PlayerLoggedOutEvent e){
+        CompoundTag playerData = e.getEntity().getPersistentData();
+        List<Integer> uuids = new ArrayList<>();
+
+        if (playerData.contains("npcs", 9)) {
+            ListTag list = playerData.getList("npcs", 8);
+            for (int i = 0; i < list.size(); i++) {
+                uuids.add(Integer.parseInt(list.getString(i)));
+            }
+        }
+
+        for(Level l : e.getEntity().getServer().getAllLevels()){
+            for(int i : uuids ){
+                try{
+                    l.getEntity(i).discard();
+                }catch (Exception exception){
+
+                }
+            }
+        }
+        ListTag emptyList = new ListTag();
+
+        // Overwrite the old entity list
+        playerData.put("npcs", emptyList);
+
+    }
+
 
     private static void awardAdvancement(ServerPlayer player) {
         Advancement adv = player.server.getAdvancements().getAdvancement(
