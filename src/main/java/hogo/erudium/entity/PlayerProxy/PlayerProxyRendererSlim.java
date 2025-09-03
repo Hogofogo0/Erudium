@@ -1,15 +1,20 @@
 package hogo.erudium.entity.PlayerProxy;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.blaze3d.vertex.PoseStack;
+import hogo.erudium.ErudiumMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.resources.SkinManager;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class PlayerProxyRendererSlim extends MobRenderer<PlayerProxyEntitySlim, StaticPlayerModel<PlayerProxyEntitySlim>> {
@@ -26,17 +31,7 @@ public class PlayerProxyRendererSlim extends MobRenderer<PlayerProxyEntitySlim, 
     public @NotNull ResourceLocation getTextureLocation(PlayerProxyEntitySlim entity) {
         UUID playerUUID = entity.getPlayerUUID();
 
-        if (playerUUID != null) {
-            assert Minecraft.getInstance().level != null;
-            AbstractClientPlayer player = (AbstractClientPlayer) Minecraft.getInstance().level.getPlayerByUUID(playerUUID);
-            if (player != null) {
-                return player.getSkinTextureLocation();
-            }
-        }
-
-        // Fallback to a default texture if the player's skin can't be found
-        return ResourceLocation.fromNamespaceAndPath("erudium", "textures/entity/honza.png");
-
+        return PlayerSkinManager.getPlayerSkin(playerUUID);
     }
 
 

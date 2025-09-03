@@ -71,7 +71,7 @@ public class Kuroshoten extends SwordItem {
             ServerLevel serverLevel = serverPlayer.serverLevel();
 
 
-            Vec3 pos = new Vec3(entity.getX(),entity.getY(),entity.getZ());
+            Vec3 pos = serverPlayer.position();
 
             // Attempt to get client model info (optional, can be skipped entirely server-side)
             boolean isSlim = hogo.erudium.event.PlayerModelSyncPacket.getPlayerModel(targetPlayer.getUUID()).equals("slim");
@@ -89,12 +89,13 @@ public class Kuroshoten extends SwordItem {
                 targetLevel.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.FULL, true);
                 targetLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, chunkPos, 2, serverPlayer.getId());
 
-                serverPlayer.teleportTo(targetLevel, pos.x, -2, pos.z, Set.of(), serverPlayer.getYRot(), serverPlayer.getXRot());
+                serverPlayer.teleportTo(targetLevel, pos_.x, -2, pos_.z, Set.of(), serverPlayer.getYRot(), serverPlayer.getXRot());
                 if (isSlim) {
                     PlayerProxyEntitySlim proxy = ModEntities.PLAYER_NPC_SLIM.get().create(serverLevel);
                     if (proxy != null) {
-                        proxy.setPos(pos_.x, pos_.y, pos_.z);
+                        proxy.setPos(pos.x, pos.y, pos.z);
                         proxy.setPlayerUUID(targetPlayer.getUUID());
+                        proxy.setPlayer(targetPlayer);
                         serverLevel.addFreshEntity(proxy);
                         CompoundTag playerData = serverPlayer.getPersistentData();
                         ListTag entityList;
@@ -107,19 +108,15 @@ public class Kuroshoten extends SwordItem {
 
                         entityList.add(StringTag.valueOf(String.valueOf(entity.getId())));
                         playerData.put("npcs", entityList);
-                        try {
-                            Thread.sleep(10000);
-                            proxy.discard();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+
 
                     }
                 } else {
                     PlayerProxyEntity proxy = ModEntities.PLAYER_NPC.get().create(serverLevel);
                     if (proxy != null) {
-                        proxy.setPos(pos_.x, pos_.y, pos_.z);
+                        proxy.setPos(pos.x, pos.y, pos.z);
                         proxy.setPlayerUUID(targetPlayer.getUUID());
+                        proxy.setPlayer(targetPlayer);
                         serverLevel.addFreshEntity(proxy);
                         CompoundTag playerData = serverPlayer.getPersistentData();
                         ListTag entityList;
@@ -132,12 +129,7 @@ public class Kuroshoten extends SwordItem {
 
                         entityList.add(StringTag.valueOf(String.valueOf(entity.getId())));
                         playerData.put("npcs", entityList);
-                        try {
-                            Thread.sleep(10000);
-                            proxy.discard();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+
 
                     }
                 }

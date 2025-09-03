@@ -1,6 +1,7 @@
 package hogo.erudium.event;
 
 import hogo.erudium.ErudiumMod;
+import hogo.erudium.ModDimensions;
 import hogo.erudium.entity.ModVillagers;
 import hogo.erudium.entity.PlayerProxy.PlayerProxyEntity;
 import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
@@ -121,8 +122,45 @@ public class ModEvents {
                 e.getEntity().stopUsingItem();
             }
         }
-        if(e.getEntity() instanceof PlayerProxyEntity || e.getEntity() instanceof PlayerProxyEntitySlim){
+        if(!(e.getEntity() instanceof PlayerProxyEntity) && !(e.getEntity() instanceof PlayerProxyEntitySlim)) return;
+        if(e.getEntity().getServer() == null) return;
+        if(e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntity) e.getEntity()).getPlayerUUID()) == null) return;
+        if(e.getEntity() instanceof PlayerProxyEntity){
             e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntity) e.getEntity()).getPlayerUUID()).hurt(e.getSource(),e.getAmount());
+            e.setCanceled(true);
+        }else
+        if(e.getEntity() instanceof PlayerProxyEntitySlim){
+            e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntitySlim) e.getEntity()).getPlayerUUID()).hurt(e.getSource(),e.getAmount());
+            e.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerChangeDim(PlayerEvent.PlayerChangedDimensionEvent e){
+        if(e.getTo() != ModDimensions.ENDLESS_VOID_KEY){
+            CompoundTag playerData = e.getEntity().getPersistentData();
+            List<Integer> uuids = new ArrayList<>();
+
+            if (playerData.contains("npcs", 9)) {
+                ListTag list = playerData.getList("npcs", 8);
+                for (int i = 0; i < list.size(); i++) {
+                    uuids.add(Integer.parseInt(list.getString(i)));
+                }
+            }
+
+            for(Level l : e.getEntity().getServer().getAllLevels()){
+                for(int i : uuids ){
+                    try{
+                        l.getEntity(i).discard();
+                    }catch (Exception exception){
+
+                    }
+                }
+            }
+            ListTag emptyList = new ListTag();
+
+            // Overwrite the old entity list
+            playerData.put("npcs", emptyList);
         }
     }
 

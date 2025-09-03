@@ -1,5 +1,9 @@
 package hogo.erudium.entity.PlayerProxy;
 
+import com.mojang.authlib.GameProfile;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -69,9 +73,17 @@ public class PlayerProxyEntity extends Mob {
         return false;
     }
 
+    private int ticksAlive = 0;
+
     @Override
     public void aiStep() {
-        // Override to do nothing, preventing any AI movement
+        super.aiStep();
+        if (!this.level().isClientSide) {
+            ticksAlive++;
+            if (ticksAlive > 200) { // 10 seconds at 20 TPS
+                this.discard();
+            }
+        }
     }
 
     @Override
@@ -84,4 +96,6 @@ public class PlayerProxyEntity extends Mob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 400).add(Attributes.FOLLOW_RANGE, 50).add(Attributes.MOVEMENT_SPEED, 0.7).add(Attributes.ATTACK_SPEED, 2).add(Attributes.ATTACK_DAMAGE, 11);
     }
+
+
 }

@@ -1,5 +1,6 @@
 package hogo.erudium.entity.PlayerProxy;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -41,6 +42,9 @@ public class PlayerProxyEntitySlim extends Mob {
     public UUID getPlayerUUID() {
         return this.entityData.get(PLAYER_UUID).orElse(null);
     }
+    public GameProfile getGameProfile(){
+        return player.getGameProfile();
+    }
 
 
 
@@ -67,9 +71,17 @@ public class PlayerProxyEntitySlim extends Mob {
         return false;
     }
 
+    private int ticksAlive = 0;
+
     @Override
     public void aiStep() {
-        // Override to do nothing, preventing any AI movement
+        super.aiStep();
+        if (!this.level().isClientSide) {
+            ticksAlive++;
+            if (ticksAlive > 200) { // 10 seconds at 20 TPS
+                this.discard();
+            }
+        }
     }
 
     @Override
