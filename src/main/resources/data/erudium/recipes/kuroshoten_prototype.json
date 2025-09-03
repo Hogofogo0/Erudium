@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#E#",
+    "NDM",
+    "#P#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:end_crystal"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "N": {
+      "item": "minecraft:netherite_hoe"
+    },
+    "D": {
+      "item": "minecraft:dragon_egg"
+    },
+    "M": {
+      "item": "minecraft:mace"
+    },
+    "P": {
+      "item": "minecraft:pearlescent_froglight"
+    }
+  },
+  "result": {
+    "item": "erudium:kuroshoten_prototype",
+    "count": 1
+  }
+}

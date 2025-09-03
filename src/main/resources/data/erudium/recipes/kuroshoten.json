@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_trim",
+  "template": {
+    "item": "minecraft:eye_armor_trim_smithing_template"
+  },
+  "base": {
+    "item": "erudium:kuroshoten_prototype"
+  },
+  "addition": {
+    "item": "minecraft:echo_shard"
+  },
+  "result": {
+    "item": "erudium:kuroshoten"
+  }
+}

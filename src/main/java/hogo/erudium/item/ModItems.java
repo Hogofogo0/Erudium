@@ -26,9 +26,11 @@ public class ModItems {
     public static final RegistryObject<Item> PTD_REMIX_MD = ITEMS.register("ptd_remix_music_disc", () -> new RecordItem(7, ModSounds.PTD_REMIX, new Item.Properties().stacksTo(1), 20*60*60*24));
     public static final RegistryObject<Item> PAN = ITEMS.register("pan", () -> new Pan(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> COFFEE_BEANS = ITEMS.register("coffee_beans", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> KUROSHOTEN_PROTOTYPE = ITEMS.register("kuroshoten_prototype", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VOJTA_SPAWN_EGG = ITEMS.register("vojta_spawn_egg",() -> new ForgeSpawnEggItem(ModEntities.VOJTA, 0x5286FF,0x001442,new Item.Properties()));
     public static final RegistryObject<Item> HONZA_SPAWN_EGG = ITEMS.register("honza_spawn_egg",() -> new ForgeSpawnEggItem(ModEntities.HONZA, 0xff1f3d,0x450000,new Item.Properties()));
     public static final RegistryObject<Item> Kuroshoten = ITEMS.register("kuroshoten", hogo.erudium.item.custom.Kuroshoten::new);
+
 
 
     public static void register(IEventBus bus) {
