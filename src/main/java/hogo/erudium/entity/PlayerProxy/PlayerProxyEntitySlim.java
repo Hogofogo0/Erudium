@@ -1,6 +1,5 @@
 package hogo.erudium.entity.PlayerProxy;
 
-import com.mojang.authlib.GameProfile;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -42,9 +41,7 @@ public class PlayerProxyEntitySlim extends Mob {
     public UUID getPlayerUUID() {
         return this.entityData.get(PLAYER_UUID).orElse(null);
     }
-    public GameProfile getGameProfile(){
-        return player.getGameProfile();
-    }
+
 
 
 

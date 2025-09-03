@@ -8,14 +8,11 @@ import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
 import hogo.erudium.item.ModItems;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +22,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
@@ -126,11 +122,11 @@ public class ModEvents {
         if(e.getEntity().getServer() == null) return;
         if(e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntity) e.getEntity()).getPlayerUUID()) == null) return;
         if(e.getEntity() instanceof PlayerProxyEntity){
-            e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntity) e.getEntity()).getPlayerUUID()).hurt(e.getSource(),e.getAmount());
+            Objects.requireNonNull(e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntity) e.getEntity()).getPlayerUUID())).hurt(e.getSource(),e.getAmount());
             e.setCanceled(true);
         }else
         if(e.getEntity() instanceof PlayerProxyEntitySlim){
-            e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntitySlim) e.getEntity()).getPlayerUUID()).hurt(e.getSource(),e.getAmount());
+            Objects.requireNonNull(e.getEntity().getServer().getPlayerList().getPlayer(((PlayerProxyEntitySlim) e.getEntity()).getPlayerUUID())).hurt(e.getSource(),e.getAmount());
             e.setCanceled(true);
         }
     }
@@ -148,11 +144,11 @@ public class ModEvents {
                 }
             }
 
-            for(Level l : e.getEntity().getServer().getAllLevels()){
+            for(Level l : Objects.requireNonNull(e.getEntity().getServer()).getAllLevels()){
                 for(int i : uuids ){
                     try{
-                        l.getEntity(i).discard();
-                    }catch (Exception exception){
+                        Objects.requireNonNull(l.getEntity(i)).discard();
+                    }catch (Exception ignored){
 
                     }
                 }
@@ -176,11 +172,11 @@ public class ModEvents {
             }
         }
 
-        for(Level l : e.getEntity().getServer().getAllLevels()){
+        for(Level l : Objects.requireNonNull(e.getEntity().getServer()).getAllLevels()){
             for(int i : uuids ){
                 try{
-                    l.getEntity(i).discard();
-                }catch (Exception exception){
+                    Objects.requireNonNull(l.getEntity(i)).discard();
+                }catch (Exception ignored){
 
                 }
             }

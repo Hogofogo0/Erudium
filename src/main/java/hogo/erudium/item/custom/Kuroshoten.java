@@ -1,6 +1,5 @@
 package hogo.erudium.item.custom;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import hogo.erudium.ErudiumMod;
 import hogo.erudium.ModDimensions;
 import hogo.erudium.entity.ModEntities;
@@ -8,12 +7,8 @@ import hogo.erudium.entity.PlayerProxy.PlayerProxyEntity;
 import hogo.erudium.entity.PlayerProxy.PlayerProxyEntitySlim;
 import hogo.erudium.event.PlayerModelSyncPacket;
 import hogo.erudium.event.TeleportToDimensionPacket;
-import hogo.erudium.item.ModItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -25,21 +20,17 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkStatus;
-import net.minecraft.world.level.storage.PlayerDataStorage;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Quaternionf;
 
+import java.util.Objects;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class Kuroshoten extends SwordItem {
     public Kuroshoten() {
@@ -56,10 +47,12 @@ public class Kuroshoten extends SwordItem {
 
         // ---- CLIENT-SIDE LOGGING ----
         if (player.level().isClientSide) {
+            assert Minecraft.getInstance().level != null;
             AbstractClientPlayer clientPlayer = (AbstractClientPlayer) Minecraft.getInstance().level.getPlayerByUUID(targetPlayer.getUUID());
             if (clientPlayer != null) {
                 ErudiumMod.LOGGER.info(clientPlayer.getModelName());
             }
+            assert clientPlayer != null;
             String modelType= clientPlayer.getModelName();
 
 
@@ -80,7 +73,7 @@ public class Kuroshoten extends SwordItem {
             targetPlayer.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 300));
 
             // Teleport the player to custom dimension
-            ServerLevel targetLevel = serverPlayer.getServer().getLevel(ModDimensions.ENDLESS_VOID_KEY);
+            ServerLevel targetLevel = Objects.requireNonNull(serverPlayer.getServer()).getLevel(ModDimensions.ENDLESS_VOID_KEY);
             if (targetLevel != null) {
                 double scale = serverLevel.dimensionType().coordinateScale() / targetLevel.dimensionType().coordinateScale();
                 Vec3 pos_ = serverPlayer.position().multiply(new Vec3(scale, 1, scale));
@@ -167,7 +160,7 @@ public class Kuroshoten extends SwordItem {
 
 
     @Override
-    public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, Level level, @NotNull LivingEntity entity) {
 
         if (level.isClientSide && entity instanceof Player player) {
             System.out.println("Sending teleport packet for: " + player.getName().getString());
