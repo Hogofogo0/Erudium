@@ -25,5 +25,14 @@
         "stream": true
       }
     ]
+  },
+  "tdd_remix": {
+    "subtitle": "sounds.erudium.tdd_remix",
+    "sounds": [
+      {
+        "name": "erudium:tdd_remix",
+        "stream": true
+      }
+    ]
   }
 }

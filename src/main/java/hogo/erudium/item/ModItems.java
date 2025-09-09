@@ -23,7 +23,8 @@ public class ModItems {
     public static final RegistryObject<Item> SMOKED_SAND = ITEMS.register("uzeny_pisek", () -> new Item(new Item.Properties().food(FoodItems.SMOKED_SAND)));
     public static final RegistryObject<Item> COFFEE = ITEMS.register("coffee", () -> new DrinkableItem(new Item.Properties().food(FoodItems.COFFEE)));
     public static final RegistryObject<Item> POKERFISH_EXTRACT = ITEMS.register("pfx", () -> new FuelItem(new Item.Properties().food(FoodItems.PFX),1800));
-    public static final RegistryObject<Item> PTD_REMIX_MD = ITEMS.register("ptd_remix_music_disc", () -> new RecordItem(7, ModSounds.PTD_REMIX, new Item.Properties().stacksTo(1), 20*60*60*24));
+    public static final RegistryObject<Item> PTD_REMIX_MD = ITEMS.register("ptd_remix_music_disc", () -> new RecordItem(7, ModSounds.PTD_REMIX, new Item.Properties().stacksTo(1), 20*28));
+    public static final RegistryObject<Item> TDD_REMIX_MD = ITEMS.register("tdd_remix_music_disc", () -> new RecordItem(7, ModSounds.TDD_REMIX, new Item.Properties().stacksTo(1), 120*20));
     public static final RegistryObject<Item> PAN = ITEMS.register("pan", () -> new Pan(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> COFFEE_BEANS = ITEMS.register("coffee_beans", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> KUROSHOTEN_PROTOTYPE = ITEMS.register("kuroshoten_prototype", () -> new Item(new Item.Properties()));

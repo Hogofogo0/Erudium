@@ -42,6 +42,10 @@ public class ModEvents {
                     new ItemStack(ModItems.POKERFISH_EXTRACT.get(), 2), new ItemStack(ModItems.COFFEE.get(), 1), 10, 15, 0.075f
 
             )));
+            trades.get(2).add(((pTrader, pRandom) -> new MerchantOffer(
+                    new ItemStack(ModItems.COFFEE.get(), 64), new ItemStack(ModItems.TDD_REMIX_MD.get(), 1), 1, 15, 0.075f
+
+            )));
         }
     }
 

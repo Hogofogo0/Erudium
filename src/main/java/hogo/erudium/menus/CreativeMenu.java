@@ -28,6 +28,7 @@ public class CreativeMenu {
                 output.accept(ModBlocks.COMPRESSOR.get());
                 output.accept(ModItems.Kuroshoten.get());
                 output.accept(ModItems.KUROSHOTEN_PROTOTYPE.get());
+                output.accept(ModItems.TDD_REMIX_MD.get());
             }))
             .build());
 
