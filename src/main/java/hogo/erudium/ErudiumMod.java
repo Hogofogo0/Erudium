@@ -32,10 +32,13 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+
+import java.util.Optional;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ErudiumMod.MODID)
@@ -96,7 +99,8 @@ public class ErudiumMod
                 TeleportToDimensionPacket.class,
                 TeleportToDimensionPacket::encode,
                 TeleportToDimensionPacket::decode,
-                TeleportToDimensionPacket::handle
+                TeleportToDimensionPacket::handle,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER)
         );
         NETWORK.registerMessage(
                 packetId++,
