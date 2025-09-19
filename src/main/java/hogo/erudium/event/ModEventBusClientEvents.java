@@ -6,9 +6,12 @@ import hogo.erudium.entity.honza.HonzaModel;
 import hogo.erudium.entity.vojta.VojtaModel;
 import hogo.erudium.item.ModItems;
 import hogo.erudium.menus.KuroshotenTeleportOverlay;
+import hogo.erudium.rendering.EndlessVoidDimensionEffects;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,6 +29,11 @@ public class ModEventBusClientEvents {
     public static void registerHud(RegisterGuiOverlaysEvent e) {
 
         e.registerAboveAll("kuroshoten_tp", KuroshotenTeleportOverlay.HUD_TELEPORT);
+    }
+    @SubscribeEvent
+    public static void onRegisterDimensionSpecialEffects(RegisterDimensionSpecialEffectsEvent event) {
+
+        event.register(ResourceLocation.fromNamespaceAndPath(ErudiumMod.MODID,"endless_void_effects"), new EndlessVoidDimensionEffects());
     }
 
 

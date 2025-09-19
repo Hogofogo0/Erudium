@@ -23,10 +23,7 @@ public class ModEventBusEvents {
         e.put(ModEntities.PLAYER_NPC_SLIM.get(), PlayerProxyEntity.createHonzaPorperties().build());
     }
 
-    @SubscribeEvent
-    public static void onRegisterDimensionSpecialEffects(RegisterDimensionSpecialEffectsEvent event) {
-        event.register(ResourceLocation.fromNamespaceAndPath(ErudiumMod.MODID,"endless_void_effects"), new EndlessVoidDimensionEffects());
-    }
+
 
 
 

@@ -11,8 +11,7 @@
   ],
   "client": [
     "NoBlockOutline",
-    "NoBobbing",
-    "NoLandingSound"
+    "NoLandingSound",
   ],
   "injectors": {
     "defaultRequire": 1
