@@ -137,7 +137,7 @@ public class ErudiumMod
             EntityRenderers.register(ModEntities.PLAYER_NPC.get(), PlayerProxyRenderer::new);
             EntityRenderers.register(ModEntities.PLAYER_NPC_SLIM.get(), PlayerProxyRendererSlim::new);
             MenuScreens.register(ModMenuTypes.COMPRESSOR_MENU.get(), CompressorScreen::new);
-            registerPackets();
+
 
 
 
